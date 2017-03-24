@@ -1,0 +1,24 @@
+* {
+  border-radius: 0;
+}
+h1{
+	font-size: 500%;
+}
+body{
+	background-color: #E9E9E9;
+	color: #424242;
+}
+.top{
+	background-color: #3299BB;
+}
+.mid{
+	background-color: #424242;
+}
+#timer{
+	color: #E9E9E9;
+}
+#start{
+	background-color: #FF9900;
+	border-radius: 0;
+	border: none;
+}
