@@ -59,6 +59,7 @@ $(document).ready(function(){
 	var correct = 0;
 	var incorrect = 0;
 	var disable = 1;
+	var correctAnswer = "";
 
 	function end(){
 		$("#start-button").show();
@@ -77,6 +78,16 @@ $(document).ready(function(){
 		var removed = questionsById.splice(rand,1);
 		intervalId = setInterval(active,1000);
 		disable = 1;
+		for(i=1;i<4+1;i++){
+			
+			if (eval("questions."+removed+".answers.answer"+i+"[1]") === 1){
+				//console.log(eval("questions."+removed+".answers.answer"+i+"[1]"));
+				correctAnswer = ("answer"+i);
+				//console.log(correctAnswer);
+				
+			}
+		}
+
 		//console.log(removed);
 		$("#timer").text("Time Remaining: " + time);
 		$("#question").html(eval("questions."+removed+".question"));
@@ -104,6 +115,7 @@ $(document).ready(function(){
 			if(eval("questions." + $(this).attr("data-qid") + ".answers." + check + "[1]") === 1){
 				$("#question").html("You are Correct!");
 				correct++;
+				
 				audioC.play();
 				clearInterval(intervalId);
 				setTimeout(function(){
@@ -113,6 +125,8 @@ $(document).ready(function(){
 						end();
 					}else{
 					time = 10;	
+					console.log(correctAnswer);
+					
 					newQestion();
 					}
 				}, 5000);
@@ -120,6 +134,8 @@ $(document).ready(function(){
 				$("#question").html("Wrong!");
 				incorrect++;
 				audioW.play();
+				$("#" + correctAnswer).css("color","green");
+				console.log(correctAnswer);
 				clearInterval(intervalId);
 				setTimeout(function(){
 					if(questionsById.length === 0){
@@ -128,6 +144,7 @@ $(document).ready(function(){
 						end();
 					}else{
 					time = 10;	
+					$("#" + correctAnswer).css("color","#424242");
 					newQestion();
 					}
 				}, 5000);
@@ -142,7 +159,7 @@ $(document).ready(function(){
 		for(i=1; i<Object.keys(questions).length+1; i++){
 			
 			var id = ("q"+i);
-			console.log(id);
+			//console.log(id);
 			questionsById.push(id);
 		}
 
@@ -175,11 +192,11 @@ $(document).ready(function(){
 
 	function stop(){
 		clearInterval(intervalId);
-		console.log("trying to stop");
+		//console.log("trying to stop");
 	}	
 	
 	
-	console.log(Object.keys(questions).length);
-	console.log(questionsById);
+	//console.log(Object.keys(questions).length);
+	//console.log(questionsById);
 	}
 })
